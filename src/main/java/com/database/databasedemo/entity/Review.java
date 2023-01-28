@@ -19,4 +19,13 @@ public class Review {
     private String description;
 
     private String rating;
+
+    @ManyToOne
+    @JoinColumn(name = "course_id")
+    private Course course;
+
+    public Review(String description, String rating){
+        this.setDescription(description);
+        this.setRating(rating);
+    }
 }
