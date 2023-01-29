@@ -19,4 +19,3 @@ insert into student_course(student_id, course_id) values(20002,10001)
 insert into student_course(student_id, course_id) values(20003,10001)
 
 insert into student_course(student_id, course_id) values(20002,10003)
-insert into student_course(student_id, course_id) values(20003,10003)

@@ -1,9 +1,6 @@
 package com.database.databasedemo;
 
 import com.database.databasedemo.entity.Course;
-import com.database.databasedemo.entity.Passport;
-import com.database.databasedemo.entity.Review;
-import com.database.databasedemo.entity.Student;
 import com.database.databasedemo.repository.CourseRepository;
 import com.database.databasedemo.repository.PassportRepository;
 import com.database.databasedemo.repository.StudentRepository;
@@ -35,33 +32,13 @@ public class DatabaseDemoApplication implements CommandLineRunner {
 	@Transactional
 	public void run(String... args) throws Exception {
 
-		//Adding student with passport
-		Passport toddyPassport = new Passport("T999");
-		passportRepository.save(toddyPassport);
+		//Courses without students
+		log.info("Courses without students: {}", courseRepository.findCoursesWithoutStudents().stream().map(Course::getName).toList());
 
-		Student toddy = Student.builder()
-				.name("Toddy")
-				.passport(toddyPassport)
-				.build();
-		toddy = studentRepository.save(toddy);
+		//Courses with at least 2 students
+		log.info("Courses without students: {}", courseRepository.findCoursesWithAtLeastTwoStudents().stream().map(Course::getName).toList());
 
-		log.info("Student saved: {}", toddy.getName());
-
-		Student joao = studentRepository.findById(20001L);
-		log.info(joao.toString());
-		log.info(joao.getPassport().toString());
-		//Retrieve student with courses
-		log.info("Courses from {}: {}", joao.getName(), joao.getCourses().stream().map(Course::getName).toList());
-
-		//Adding course with review
-		courseRepository.addReviewsForCourse(10001L, new Review("Top top","5"));
-
-		//Retrieving course with students
-		Course matematicaBasica = courseRepository.findById(10001L);
-		log.info("Course: {} - Students: {} - Reviews: {}",
-				matematicaBasica.getName(),
-				matematicaBasica.getStudents().stream().map(Student::getName).toList(),
-				matematicaBasica.getReviews().stream().map(review -> review.getDescription() +"|"+ review.getRating()).toList()
-		);
+		//Courses ordered by students quantity
+		log.info("Courses without students: {}", courseRepository.findCoursesOrderedByStudents().stream().map(Course::getName).toList());
 	}
 }
