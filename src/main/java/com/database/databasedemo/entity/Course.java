@@ -40,6 +40,10 @@ public class Course {
     @OneToMany(mappedBy = "course")
     private List<Review> reviews = new ArrayList<>();
 
+    @Getter
+    @ManyToMany(mappedBy = "courses")
+    private List<Student> students = new ArrayList<>();
+
     public void addReview(Review review){
         this.getReviews().add(review);
     }

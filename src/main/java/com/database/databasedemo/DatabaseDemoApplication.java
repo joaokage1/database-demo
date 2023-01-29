@@ -1,5 +1,6 @@
 package com.database.databasedemo;
 
+import com.database.databasedemo.entity.Course;
 import com.database.databasedemo.entity.Passport;
 import com.database.databasedemo.entity.Review;
 import com.database.databasedemo.entity.Student;
@@ -44,13 +45,23 @@ public class DatabaseDemoApplication implements CommandLineRunner {
 				.build();
 		toddy = studentRepository.save(toddy);
 
-		log.info("Student saved: {}", toddy);
+		log.info("Student saved: {}", toddy.getName());
 
-		Student test = studentRepository.findById(20001L);
-		log.info(test.toString());
-		log.info(test.getPassport().toString());
+		Student joao = studentRepository.findById(20001L);
+		log.info(joao.toString());
+		log.info(joao.getPassport().toString());
+		//Retrieve student with courses
+		log.info("Courses from {}: {}", joao.getName(), joao.getCourses().stream().map(Course::getName).toList());
 
 		//Adding course with review
 		courseRepository.addReviewsForCourse(10001L, new Review("Top top","5"));
+
+		//Retrieving course with students
+		Course matematicaBasica = courseRepository.findById(10001L);
+		log.info("Course: {} - Students: {} - Reviews: {}",
+				matematicaBasica.getName(),
+				matematicaBasica.getStudents().stream().map(Student::getName).toList(),
+				matematicaBasica.getReviews().stream().map(review -> review.getDescription() +"|"+ review.getRating()).toList()
+		);
 	}
 }
