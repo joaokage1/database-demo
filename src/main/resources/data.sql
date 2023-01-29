@@ -6,9 +6,9 @@ insert into passport(id, number) values(30001,'A123')
 insert into passport(id, number) values(30002,'B456')
 insert into passport(id, number) values(30003,'C789')
 
-insert into student(id, name, passport_id) values(20001,'Joao',30001)
-insert into student(id, name, passport_id) values(20002,'Gomes',30002)
-insert into student(id, name, passport_id) values(20003,'Silva',30003)
+insert into student(id, name, passport_id, active) values(20001,'Joao',30001,true)
+insert into student(id, name, passport_id, active) values(20002,'Gomes',30002,true)
+insert into student(id, name, passport_id, active) values(20003,'Silva',30003,true)
 
 insert into review(id, description, rating, course_id) values(40001,'Muito bom','4.5',10001)
 insert into review(id, description, rating, course_id) values(40002,'Mais ou menos - faltou algumas coisas importantes','2.5',10003)

@@ -42,6 +42,7 @@ public class DatabaseDemoApplication implements CommandLineRunner {
 		Student toddy = Student.builder()
 				.name("Toddy")
 				.passport(toddyPassport)
+				.active(true)
 				.build();
 		toddy = studentRepository.save(toddy);
 
@@ -63,5 +64,10 @@ public class DatabaseDemoApplication implements CommandLineRunner {
 				matematicaBasica.getStudents().stream().map(Student::getName).toList(),
 				matematicaBasica.getReviews().stream().map(review -> review.getDescription() +"|"+ review.getRating()).toList()
 		);
+
+		//Deleting with soft delete toddy
+		Long toddyId = toddy.getId();
+		studentRepository.deleteById(toddyId);
+		log.info("User deleted {}: {}", toddyId, studentRepository.findById(toddyId));
 	}
 }

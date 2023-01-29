@@ -2,6 +2,8 @@ package com.database.databasedemo.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +12,8 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@SQLDelete(sql = "update student set active=false where id=?")
+@Where(clause = "active = true")
 public class Student {
 
     @Id
@@ -30,6 +34,11 @@ public class Student {
     @Setter
     @OneToOne(fetch = FetchType.LAZY)
     private Passport passport;
+
+    @Getter
+    @Setter
+    @Column(nullable = false)
+    private Boolean active;
 
     //*ToMany is always EAGER lazy
     // by default
