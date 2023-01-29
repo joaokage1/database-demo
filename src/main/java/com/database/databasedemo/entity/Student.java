@@ -58,4 +58,9 @@ public class Student {
     public void removeReview(Course course){
         this.getCourses().remove(course);
     }
+
+    @PreRemove
+    private void preRemove(){
+        this.setActive(false);
+    }
 }
